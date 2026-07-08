@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-    </list>
+    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,9 +56,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="3GEGzg632hQpsFZdvBRXCHIoRbH" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -69,25 +66,25 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.C:/Users/Trevd/mc mods/Chest-Labels [createMcpToSrg].executor": "Run",
-    "Gradle.C:/Users/Trevd/mc mods/Chest-Labels [wrapper genIntellijRuns].executor": "Run",
-    "Gradle.Chest-Labels [createMcpToSrg].executor": "Run",
-    "Gradle.Chest-Labels [runClient].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "gradle.properties;src\\main\\resources\\META-INF\\mods.toml;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabels\\Chestlabels.java;src\\main\\java\\com\\orbital\\chestlabels\\Config.java;README.md",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "sweep.chatMode": "Agent",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.C:/Users/Trevd/mc mods/Chest-Labels [createMcpToSrg].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.C:/Users/Trevd/mc mods/Chest-Labels [wrapper genIntellijRuns].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [createMcpToSrg].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [runClient].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;dev.sweep.assistant.data.RecentlyUsedFiles&quot;: &quot;gradle.properties;src\\main\\resources\\META-INF\\mods.toml;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabels\\Chestlabels.java;src\\main\\java\\com\\orbital\\chestlabels\\Config.java;README.md&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;sweep.chatMode&quot;: &quot;Agent&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Gradle.Chest-Labels [runClient]">
     <configuration name="Chest-Labels [runClient]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>

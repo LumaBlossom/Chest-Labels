@@ -1,17 +1,14 @@
 package com.orbital.chestlabel.client;
 
-import com.orbital.chestlabel.client.ChestLabelData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,17 +29,20 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen ContainerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
             return;
         }
-        ChestMenu menu = ContainerScreen.getMenu();
-        BlockPos pos = locatePosFromMenu(ContainerScreen);
-        if (pos == null) {
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
             return;
         }
+        BlockPos clickedPos = lastRightClickedPos;
+        if (clickedPos == null) {
+            return;
+        }
+        BlockPos pos = ChestPosResolver.resolveAnchor(Minecraft.getInstance().level, clickedPos);
         activePos = pos;
-        int guiLeft = getLeftPos(ContainerScreen);
-        int guiTop = getTopPos(ContainerScreen);
+        int guiLeft = containerScreen.getGuiLeft();
+        int guiTop = containerScreen.getGuiTop();
         int barY = guiTop - 24;
         int barX = guiLeft;
 
@@ -61,7 +61,10 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenRender(ScreenEvent.Render.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
+            return;
+        }
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
             return;
         }
         var graphics = event.getGuiGraphics();
@@ -73,7 +76,10 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenMouseClicked(ScreenEvent.MouseButtonPressed.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
+            return;
+        }
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
             return;
         }
         double mouseX = event.getMouseX();
@@ -96,17 +102,5 @@ public class ChestScreenHandler {
 
     private static net.minecraft.resources.ResourceLocation getDimensionKey() {
         return Minecraft.getInstance().level.dimension().location();
-    }
-
-    private static BlockPos locatePosFromMenu(ContainerScreen screen) {
-        return lastRightClickedPos;
-    }
-
-    private static int getLeftPos(ContainerScreen screen) {
-        return screen.getGuiLeft();
-    }
-
-    private static int getTopPos(ContainerScreen screen) {
-        return screen.getGuiTop();
     }
 }
