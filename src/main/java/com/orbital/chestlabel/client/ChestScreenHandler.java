@@ -29,7 +29,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
             return;
         }
         if (!(containerScreen.getMenu() instanceof ChestMenu)) {
@@ -61,7 +61,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenRender(ScreenEvent.Render.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
             return;
         }
         if (!(containerScreen.getMenu() instanceof ChestMenu)) {
@@ -76,7 +76,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenMouseClicked(ScreenEvent.MouseButtonPressed.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen<?> containerScreen)) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
             return;
         }
         if (!(containerScreen.getMenu() instanceof ChestMenu)) {
