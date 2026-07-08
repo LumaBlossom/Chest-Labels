@@ -1,5 +1,6 @@
 package com.luma.chestlabel.client;
 
+import com.luma.chestlabel.client.ChestLabelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -86,9 +87,25 @@ public class ChestLabelRenderer {
         if (isOccluded(level, camPos, abovePos)) {
             BlockState state = level.getBlockState(anchor);
             Direction facing = state.hasProperty(ChestBlock.FACING) ? state.getValue(ChestBlock.FACING) : Direction.NORTH;
+            Direction left = facing.getCounterClockWise();
+            Direction right = facing.getClockWise();
+            Direction back = facing.getOpposite();
+
             Vec3 frontPos = new Vec3(center.x + facing.getStepX() * 0.65, anchor.getY() + 0.5, center.z + facing.getStepZ() * 0.65);
+            Vec3 leftPos = new Vec3(center.x + left.getStepX() * 0.65, anchor.getY() + 0.5, center.z + left.getStepZ() * 0.65);
+            Vec3 rightPos = new Vec3(center.x + right.getStepX() * 0.65, anchor.getY() + 0.5, center.z + right.getStepZ() * 0.65);
+            Vec3 backPos = new Vec3(center.x + back.getStepX() * 0.65, anchor.getY() + 0.5, center.z + back.getStepZ() * 0.65);
+
             if (!isOccluded(level, camPos, frontPos)) {
                 targetPos = frontPos;
+            } else if (!isOccluded(level, camPos, leftPos)) {
+                targetPos = leftPos;
+            } else if (!isOccluded(level, camPos, rightPos)) {
+                targetPos = rightPos;
+            } else if (!isOccluded(level, camPos, backPos)) {
+                targetPos = backPos;
+            } else {
+                targetPos = backPos;
             }
         }
 
