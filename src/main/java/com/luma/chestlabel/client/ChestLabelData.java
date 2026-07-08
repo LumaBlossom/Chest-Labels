@@ -1,4 +1,4 @@
-package com.orbital.chestlabel.client;
+package com.luma.chestlabel.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

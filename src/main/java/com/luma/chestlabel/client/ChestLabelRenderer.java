@@ -1,4 +1,4 @@
-package com.orbital.chestlabel.client;
+package com.luma.chestlabel.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
@@ -7,10 +7,15 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
@@ -75,9 +80,21 @@ public class ChestLabelRenderer {
             return;
         }
 
-        double x = center.x - camPos.x;
-        double y = center.y + 1.4 - camPos.y;
-        double z = center.z - camPos.z;
+        Vec3 abovePos = new Vec3(center.x, anchor.getY() + 1.4, center.z);
+        Vec3 targetPos = abovePos;
+
+        if (isOccluded(level, camPos, abovePos)) {
+            BlockState state = level.getBlockState(anchor);
+            Direction facing = state.hasProperty(ChestBlock.FACING) ? state.getValue(ChestBlock.FACING) : Direction.NORTH;
+            Vec3 frontPos = new Vec3(center.x + facing.getStepX() * 0.65, anchor.getY() + 0.5, center.z + facing.getStepZ() * 0.65);
+            if (!isOccluded(level, camPos, frontPos)) {
+                targetPos = frontPos;
+            }
+        }
+
+        double x = targetPos.x - camPos.x;
+        double y = targetPos.y - camPos.y;
+        double z = targetPos.z - camPos.z;
 
         poseStack.pushPose();
         poseStack.translate(x, y, z);
@@ -105,5 +122,11 @@ public class ChestLabelRenderer {
         }
 
         poseStack.popPose();
+    }
+
+    private static boolean isOccluded(ClientLevel level, Vec3 from, Vec3 to) {
+        ClipContext context = new ClipContext(from, to, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, null);
+        HitResult result = level.clip(context);
+        return result.getType() != HitResult.Type.MISS;
     }
 }

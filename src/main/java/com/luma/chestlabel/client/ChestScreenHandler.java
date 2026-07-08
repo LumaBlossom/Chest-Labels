@@ -1,4 +1,4 @@
-package com.orbital.chestlabel.client;
+package com.luma.chestlabel.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
@@ -21,6 +21,7 @@ public class ChestScreenHandler {
     private static int logoSlotX;
     private static int logoSlotY;
     private static BlockPos lastRightClickedPos;
+    private static boolean logoSlotPressActive;
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -84,20 +85,69 @@ public class ChestScreenHandler {
         }
         double mouseX = event.getMouseX();
         double mouseY = event.getMouseY();
-        if (mouseX >= logoSlotX && mouseX <= logoSlotX + 18 && mouseY >= logoSlotY && mouseY <= logoSlotY + 18) {
+        if (isOverLogoSlot(mouseX, mouseY)) {
+            logoSlotPressActive = true;
             ItemStack carried = Minecraft.getInstance().player.containerMenu.getCarried();
             if (!carried.isEmpty()) {
                 ItemStack copy = carried.copy();
                 copy.setCount(1);
                 pendingLogoItem = copy;
                 ChestLabelData.setLogoItem(getDimensionKey(), activePos, copy);
-                event.setCanceled(true);
             } else if (!pendingLogoItem.isEmpty()) {
                 pendingLogoItem = ItemStack.EMPTY;
                 ChestLabelData.setLogoItem(getDimensionKey(), activePos, ItemStack.EMPTY);
-                event.setCanceled(true);
             }
+            event.setCanceled(true);
         }
+    }
+
+    @SubscribeEvent
+    public static void onScreenMouseReleased(ScreenEvent.MouseButtonReleased.Pre event) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
+            return;
+        }
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+            return;
+        }
+        if (logoSlotPressActive) {
+            logoSlotPressActive = false;
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onScreenMouseDragged(ScreenEvent.MouseDragged.Pre event) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
+            return;
+        }
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+            return;
+        }
+        if (logoSlotPressActive) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onScreenKeyPressed(ScreenEvent.KeyPressed.Pre event) {
+        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
+            return;
+        }
+        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+            return;
+        }
+        if (activeEditBox == null || !activeEditBox.isFocused()) {
+            return;
+        }
+        if (event.getKeyCode() == org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE) {
+            return;
+        }
+        activeEditBox.keyPressed(event.getKeyCode(), event.getScanCode(), event.getModifiers());
+        event.setCanceled(true);
+    }
+
+    private static boolean isOverLogoSlot(double mouseX, double mouseY) {
+        return mouseX >= logoSlotX && mouseX <= logoSlotX + 18 && mouseY >= logoSlotY && mouseY <= logoSlotY + 18;
     }
 
     private static net.minecraft.resources.ResourceLocation getDimensionKey() {

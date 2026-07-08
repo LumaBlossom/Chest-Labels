@@ -1,11 +1,10 @@
-package com.orbital.chestlabel.client;
+package com.luma.chestlabel.client;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "chestlabel", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)

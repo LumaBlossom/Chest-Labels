@@ -1,4 +1,4 @@
-package com.orbital.chestlabel.client;
+package com.luma.chestlabel.client;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
