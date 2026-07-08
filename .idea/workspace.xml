@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestLabelRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestScreenHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,12 +21,26 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="chest-labels" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chest-labels" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="chest-labels" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="forgegradle runs" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -60,12 +74,13 @@
     "Gradle.C:/Users/Trevd/mc mods/Chest-Labels [createMcpToSrg].executor": "Run",
     "Gradle.C:/Users/Trevd/mc mods/Chest-Labels [wrapper genIntellijRuns].executor": "Run",
     "Gradle.Chest-Labels [createMcpToSrg].executor": "Run",
+    "Gradle.Chest-Labels [runClient].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;src\\main\\java\\com\\orbital\\chestlabels\\Chestlabels.java;src\\main\\java\\com\\orbital\\chestlabels\\Config.java;README.md",
+    "dev.sweep.assistant.data.RecentlyUsedFiles": "gradle.properties;src\\main\\resources\\META-INF\\mods.toml;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabels\\Chestlabels.java;src\\main\\java\\com\\orbital\\chestlabels\\Config.java;README.md",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
