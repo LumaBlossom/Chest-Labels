@@ -22,6 +22,10 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = "chestlabel", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ChestLabelRenderer {
 
@@ -33,35 +37,46 @@ public class ChestLabelRenderer {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
             return;
         }
+
         Minecraft mc = Minecraft.getInstance();
         ClientLevel level = mc.level;
+
         if (level == null || mc.player == null) {
             return;
         }
+
         Camera camera = mc.gameRenderer.getMainCamera();
         Vec3 camPos = camera.getPosition();
+
         PoseStack poseStack = event.getPoseStack();
         MultiBufferSource.BufferSource buffer = mc.renderBuffers().bufferSource();
 
         var dimKey = level.dimension().location();
+
         iterateLoadedChests(level, camPos, dimKey, poseStack, buffer, mc);
+
         buffer.endBatch();
     }
 
     private static void iterateLoadedChests(ClientLevel level, Vec3 camPos, net.minecraft.resources.ResourceLocation dimKey, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
         int radius = 6;
         BlockPos playerPos = mc.player.blockPosition();
+
         for (int dx = -radius; dx <= radius; dx++) {
             for (int dy = -radius; dy <= radius; dy++) {
                 for (int dz = -radius; dz <= radius; dz++) {
                     BlockPos pos = playerPos.offset(dx, dy, dz);
+
                     if (!ChestLabelData.hasData(dimKey, pos)) {
                         continue;
                     }
+
                     BlockEntity be = level.getBlockEntity(pos);
+
                     if (!(be instanceof ChestBlockEntity)) {
                         continue;
                     }
+
                     renderLabelAt(level, pos, dimKey, camPos, poseStack, buffer, mc);
                 }
             }
@@ -70,41 +85,48 @@ public class ChestLabelRenderer {
 
     private static void renderLabelAt(ClientLevel level, BlockPos anchor, net.minecraft.resources.ResourceLocation dimKey, Vec3 camPos, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
         Vec3 center = ChestPosResolver.resolveRenderCenter(level, anchor);
-        double distSq = center.distanceToSqr(camPos);
-        if (distSq > MAX_RENDER_DISTANCE_SQ) {
+
+        if (center.distanceToSqr(camPos) > MAX_RENDER_DISTANCE_SQ) {
             return;
         }
+
         String label = ChestLabelData.getLabel(dimKey, anchor);
         ItemStack logoItem = ChestLabelData.getLogoItem(dimKey, anchor);
+
         if (label.isEmpty() && logoItem.isEmpty()) {
             return;
         }
 
-        Vec3 abovePos = new Vec3(center.x, anchor.getY() + 1.4, center.z);
-        Vec3 targetPos = abovePos;
+        Vec3 targetPos = new Vec3(center.x, anchor.getY() + 1.4, center.z);
 
-        if (isOccluded(level, camPos, abovePos)) {
+        if (isOccluded(level, camPos, targetPos)) {
             BlockState state = level.getBlockState(anchor);
-            Direction facing = state.hasProperty(ChestBlock.FACING) ? state.getValue(ChestBlock.FACING) : Direction.NORTH;
+
+            Direction facing = state.hasProperty(ChestBlock.FACING)
+                    ? state.getValue(ChestBlock.FACING)
+                    : Direction.NORTH;
+
             Direction left = facing.getCounterClockWise();
             Direction right = facing.getClockWise();
             Direction back = facing.getOpposite();
 
-            Vec3 frontPos = new Vec3(center.x + facing.getStepX() * 0.65, anchor.getY() + 0.5, center.z + facing.getStepZ() * 0.65);
-            Vec3 leftPos = new Vec3(center.x + left.getStepX() * 1.5, anchor.getY() + 0.5, center.z + left.getStepZ() * 0.65);
-            Vec3 rightPos = new Vec3(center.x + right.getStepX() * 1.5, anchor.getY() + 0.5, center.z + right.getStepZ() * 0.65);
-            Vec3 backPos = new Vec3(center.x + back.getStepX() * 0.65, anchor.getY() + 0.5, center.z + back.getStepZ() * 0.65);
+            double frontOffset = 0.75;
+            double sideOffset = 1.2;
 
-            if (!isOccluded(level, camPos, frontPos)) {
-                targetPos = frontPos;
-            } else if (!isOccluded(level, camPos, leftPos)) {
-                targetPos = leftPos;
-            } else if (!isOccluded(level, camPos, rightPos)) {
-                targetPos = rightPos;
-            } else if (!isOccluded(level, camPos, backPos)) {
-                targetPos = backPos;
-            } else {
-                targetPos = backPos;
+            List<FaceCandidate> faces = new ArrayList<>();
+
+            addFace(faces, center, anchor, facing, frontOffset, camPos);
+            addFace(faces, center, anchor, left, sideOffset, camPos);
+            addFace(faces, center, anchor, right, sideOffset, camPos);
+            addFace(faces, center, anchor, back, frontOffset, camPos);
+
+            faces.sort(Comparator.comparingDouble(FaceCandidate::score).reversed());
+
+            for (FaceCandidate face : faces) {
+                if (!isOccluded(level, camPos, face.position())) {
+                    targetPos = face.position();
+                    break;
+                }
             }
         }
 
@@ -117,32 +139,85 @@ public class ChestLabelRenderer {
         poseStack.mulPose(mc.gameRenderer.getMainCamera().rotation());
 
         Font font = mc.font;
+
         float textWidth = label.isEmpty() ? 0 : font.width(label);
         float worldTextWidth = textWidth * TEXT_SCALE;
-
         if (!label.isEmpty()) {
             poseStack.pushPose();
             poseStack.scale(-TEXT_SCALE, -TEXT_SCALE, TEXT_SCALE);
-            float bgX = -textWidth / 2f;
-            font.drawInBatch(label, bgX, 0, 0xFFFFFF, false, poseStack.last().pose(), buffer, Font.DisplayMode.SEE_THROUGH, 0, 15728880);
+
+            float xOffset = -textWidth / 2.0F;
+
+            font.drawInBatch(
+                    label,
+                    xOffset,
+                    0,
+                    0xFFFFFF,
+                    false,
+                    poseStack.last().pose(),
+                    buffer,
+                    Font.DisplayMode.SEE_THROUGH,
+                    0,
+                    15728880
+            );
+
             poseStack.popPose();
         }
 
         if (!logoItem.isEmpty()) {
             poseStack.pushPose();
-            float itemOffsetX = label.isEmpty() ? 0 : (worldTextWidth / 2f + 0.16f);
-            poseStack.translate(itemOffsetX, -0.08, 0);
+
+            float itemOffset = label.isEmpty() ? 0.0F : (worldTextWidth / 2.0F + 0.16F);
+
+            poseStack.translate(itemOffset, -0.08, 0);
             poseStack.scale(0.4F, 0.4F, 0.4F);
-            mc.getItemRenderer().renderStatic(logoItem, ItemDisplayContext.FIXED, 15728880, net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, poseStack, buffer, mc.level, 0);
+
+            mc.getItemRenderer().renderStatic(
+                    logoItem,
+                    ItemDisplayContext.FIXED,
+                    15728880,
+                    net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY,
+                    poseStack,
+                    buffer,
+                    mc.level,
+                    0
+            );
+
             poseStack.popPose();
         }
 
         poseStack.popPose();
     }
 
+    private static void addFace(List<FaceCandidate> faces, Vec3 center, BlockPos anchor, Direction dir, double offset, Vec3 cameraPos) {
+        Vec3 pos = new Vec3(
+                center.x + dir.getStepX() * offset,
+                anchor.getY() + 0.5,
+                center.z + dir.getStepZ() * offset
+        );
+
+        Vec3 normal = new Vec3(dir.getStepX(), 0, dir.getStepZ());
+        Vec3 toCamera = cameraPos.subtract(center).normalize();
+
+        double score = normal.dot(toCamera);
+
+        faces.add(new FaceCandidate(pos, score));
+    }
+
     private static boolean isOccluded(ClientLevel level, Vec3 from, Vec3 to) {
-        ClipContext context = new ClipContext(from, to, ClipContext.Block.VISUAL, ClipContext.Fluid.NONE, null);
+        ClipContext context = new ClipContext(
+                from,
+                to,
+                ClipContext.Block.VISUAL,
+                ClipContext.Fluid.NONE,
+                null
+        );
+
         HitResult result = level.clip(context);
+
         return result.getType() != HitResult.Type.MISS;
+    }
+
+    private record FaceCandidate(Vec3 position, double score) {
     }
 }
