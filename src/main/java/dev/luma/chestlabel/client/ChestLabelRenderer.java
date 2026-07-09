@@ -91,8 +91,8 @@ public class ChestLabelRenderer {
             Direction back = facing.getOpposite();
 
             Vec3 frontPos = new Vec3(center.x + facing.getStepX() * 0.65, anchor.getY() + 0.5, center.z + facing.getStepZ() * 0.65);
-            Vec3 leftPos = new Vec3(center.x + left.getStepX() * 0.65, anchor.getY() + 0.5, center.z + left.getStepZ() * 0.65);
-            Vec3 rightPos = new Vec3(center.x + right.getStepX() * 0.65, anchor.getY() + 0.5, center.z + right.getStepZ() * 0.65);
+            Vec3 leftPos = new Vec3(center.x + left.getStepX() * 1.5, anchor.getY() + 0.5, center.z + left.getStepZ() * 0.65);
+            Vec3 rightPos = new Vec3(center.x + right.getStepX() * 1.5, anchor.getY() + 0.5, center.z + right.getStepZ() * 0.65);
             Vec3 backPos = new Vec3(center.x + back.getStepX() * 0.65, anchor.getY() + 0.5, center.z + back.getStepZ() * 0.65);
 
             if (!isOccluded(level, camPos, frontPos)) {
