@@ -1,4 +1,4 @@
-# 🏷️ Chest Labels
+# Chest Labels
 
 A Minecraft mod that allows you to organize your storage by giving chests custom names and icons directly inside the chest interface.
 
@@ -6,15 +6,14 @@ No more guessing what's inside your storage, quickly identify your chests with c
 
 ## Minecraft Fabric License
 
-[ko-fi]
 
 If you have any issues, PLEASE report them on our GitHub Issues page.
 
 ---
 
-# 📦 Features
+# Features
 
-## 🏷️ Custom Chest Labels
+## 🏷Custom Chest Labels
 
 Give your chests unique names directly from the chest GUI.
 
@@ -22,7 +21,7 @@ Labels are saved directly to the chest and remain visible whenever you open it.
 
 ---
 
-## 🖼️ Chest Icons
+## 🖼Chest Icons
 
 Assign any Minecraft item as a custom icon for your chest.
 
@@ -94,4 +93,4 @@ Configure:
 
 Chest Labels brings a simple quality-of-life improvement to Minecraft by making storage management faster, cleaner, and more customizable.
 
-Created by **[LumaBlossom]**
+Created by **LumaBlossom**
