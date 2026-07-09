@@ -1,6 +1,5 @@
-package com.luma.chestlabel.client;
+package dev.luma.chestlabel.client;
 
-import com.luma.chestlabel.client.ChestLabelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;

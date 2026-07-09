@@ -1,4 +1,4 @@
-package com.luma.chestlabel.client;
+package dev.luma.chestlabel.client;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

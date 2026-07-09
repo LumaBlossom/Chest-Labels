@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestLabelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestLabelRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestScreenHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/orbital/chestlabel/client/ChestScreenHandler.java" afterDir="false" />
-    </list>
+    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +77,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestPosResolver.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;gradle.properties;src\\main\\resources\\META-INF\\mods.toml;src\\main\\java\\com\\orbital\\chestlabels\\Chestlabels.java;src\\main\\java\\com\\orbital\\chestlabels\\Config.java",
+    "dev.sweep.assistant.data.RecentlyUsedFiles": "src\\main\\java\\com\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\luma\\chestlabel\\ChestLabelMod.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestPosResolver.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\com\\orbital\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\com\\orbital\\chestlabel\\ChestLabelMod.java;gradle.properties;src\\main\\resources\\META-INF\\mods.toml",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
