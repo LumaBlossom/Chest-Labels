@@ -1,27 +1,28 @@
 package dev.luma.chestlabel.client;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class ShulkerLabelStorage {
 
-    private static final String NAME_KEY = "chestlabel_name";
     private static final String ICON_KEY = "chestlabel_icon";
 
     public static String getLabel(BlockEntity be) {
-        CompoundTag tag = be.getPersistentData();
-        return tag.contains(NAME_KEY) ? tag.getString(NAME_KEY) : "";
+        if (be instanceof BaseContainerBlockEntity container) {
+            Component name = container.getCustomName();
+            return name != null ? name.getString() : "";
+        }
+        return "";
     }
 
     public static void setLabel(BlockEntity be, String label) {
-        CompoundTag tag = be.getPersistentData();
-        if (label.isEmpty()) {
-            tag.remove(NAME_KEY);
-        } else {
-            tag.putString(NAME_KEY, label);
+        if (be instanceof BaseContainerBlockEntity container) {
+            container.setCustomName(label.isEmpty() ? null : Component.literal(label));
+            be.setChanged();
         }
-        be.setChanged();
     }
 
     public static ItemStack getLogoItem(BlockEntity be) {
@@ -45,7 +46,6 @@ public class ShulkerLabelStorage {
     }
 
     public static boolean hasData(BlockEntity be) {
-        CompoundTag tag = be.getPersistentData();
-        return tag.contains(NAME_KEY) || tag.contains(ICON_KEY);
+        return !getLabel(be).isEmpty() || be.getPersistentData().contains(ICON_KEY);
     }
 }
