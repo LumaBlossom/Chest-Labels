@@ -152,6 +152,14 @@ public class ChestScreenHandler {
         return activePos != null;
     }
 
+    public static String getActiveLabel() {
+        return activeEditBox != null ? activeEditBox.getValue() : "";
+    }
+
+    public static ItemStack getActiveLogoItem() {
+        return pendingLogoItem;
+    }
+
     public static int getLogoSlotX() {
         return logoSlotX;
     }

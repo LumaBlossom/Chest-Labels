@@ -11,9 +11,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -58,6 +60,10 @@ public class ChestLabelRenderer {
         buffer.endBatch();
     }
 
+    private static boolean isSupportedBlock(Block block) {
+        return block instanceof ChestBlock || block instanceof BarrelBlock || block instanceof ShulkerBoxBlock;
+    }
+
     private static void iterateLoadedChests(ClientLevel level, Vec3 camPos, net.minecraft.resources.ResourceLocation dimKey, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
         int radius = 6;
         BlockPos playerPos = mc.player.blockPosition();
@@ -71,9 +77,9 @@ public class ChestLabelRenderer {
                         continue;
                     }
 
-                    BlockEntity be = level.getBlockEntity(pos);
+                    BlockState state = level.getBlockState(pos);
 
-                    if (!(be instanceof ChestBlockEntity)) {
+                    if (!isSupportedBlock(state.getBlock())) {
                         continue;
                     }
 
@@ -102,9 +108,7 @@ public class ChestLabelRenderer {
         if (isOccluded(level, camPos, targetPos)) {
             BlockState state = level.getBlockState(anchor);
 
-            Direction facing = state.hasProperty(ChestBlock.FACING)
-                    ? state.getValue(ChestBlock.FACING)
-                    : Direction.NORTH;
+            Direction facing = resolveFacing(state);
 
             Direction left = facing.getCounterClockWise();
             Direction right = facing.getClockWise();
@@ -187,6 +191,20 @@ public class ChestLabelRenderer {
         }
 
         poseStack.popPose();
+    }
+
+    private static Direction resolveFacing(BlockState state) {
+        if (state.hasProperty(ChestBlock.FACING)) {
+            return state.getValue(ChestBlock.FACING);
+        }
+        if (state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING)) {
+            Direction dir = state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING);
+            return dir.getAxis() == Direction.Axis.Y ? Direction.NORTH : dir;
+        }
+        if (state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING)) {
+            return state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING);
+        }
+        return Direction.NORTH;
     }
 
     private static void addFace(List<FaceCandidate> faces, Vec3 center, BlockPos anchor, Direction dir, double offset, Vec3 cameraPos) {
