@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,10 +55,6 @@ public class ChestLabelRenderer {
         buffer.endBatch();
     }
 
-    private static boolean isSupportedBlock(Block block) {
-        return block instanceof ChestBlock || block instanceof BarrelBlock || block instanceof ShulkerBoxBlock;
-    }
-
     private static void iterateLoadedChests(ClientLevel level, Vec3 camPos, net.minecraft.resources.ResourceLocation dimKey, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
         int radius = 6;
         BlockPos playerPos = mc.player.blockPosition();
@@ -66,34 +63,42 @@ public class ChestLabelRenderer {
             for (int dy = -radius; dy <= radius; dy++) {
                 for (int dz = -radius; dz <= radius; dz++) {
                     BlockPos pos = playerPos.offset(dx, dy, dz);
+                    Block block = level.getBlockState(pos).getBlock();
 
-                    if (!ChestLabelData.hasData(dimKey, pos)) {
+                    String label;
+                    ItemStack logoItem;
+
+                    if (block instanceof ShulkerBoxBlock) {
+                        BlockEntity be = level.getBlockEntity(pos);
+                        if (be == null || !ShulkerLabelStorage.hasData(be)) {
+                            continue;
+                        }
+                        label = ShulkerLabelStorage.getLabel(be);
+                        logoItem = ShulkerLabelStorage.getLogoItem(be);
+                    } else if (block instanceof ChestBlock || block instanceof BarrelBlock) {
+                        if (!ChestLabelData.hasData(dimKey, pos)) {
+                            continue;
+                        }
+                        label = ChestLabelData.getLabel(dimKey, pos);
+                        logoItem = ChestLabelData.getLogoItem(dimKey, pos);
+                    } else {
                         continue;
                     }
 
-                    BlockState blockState = level.getBlockState(pos);
-
-                    if (!isSupportedBlock(blockState.getBlock())) {
+                    if (label.isEmpty() && logoItem.isEmpty()) {
                         continue;
                     }
 
-                    renderLabelAt(level, pos, dimKey, camPos, poseStack, buffer, mc);
+                    renderLabelAt(level, pos, label, logoItem, camPos, poseStack, buffer, mc);
                 }
             }
         }
     }
 
-    private static void renderLabelAt(ClientLevel level, BlockPos anchor, net.minecraft.resources.ResourceLocation dimKey, Vec3 camPos, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
+    private static void renderLabelAt(ClientLevel level, BlockPos anchor, String label, ItemStack logoItem, Vec3 camPos, PoseStack poseStack, MultiBufferSource.BufferSource buffer, Minecraft mc) {
         Vec3 center = ChestPosResolver.resolveRenderCenter(level, anchor);
 
         if (center.distanceToSqr(camPos) > MAX_RENDER_DISTANCE_SQ) {
-            return;
-        }
-
-        String label = ChestLabelData.getLabel(dimKey, anchor);
-        ItemStack logoItem = ChestLabelData.getLogoItem(dimKey, anchor);
-
-        if (label.isEmpty() && logoItem.isEmpty()) {
             return;
         }
 
