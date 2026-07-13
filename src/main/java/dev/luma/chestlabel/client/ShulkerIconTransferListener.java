@@ -24,6 +24,9 @@ public class ShulkerIconTransferListener {
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
         ItemStack stack = event.getItemStack();
         if (!stack.isEmpty() && stack.getItem() instanceof BlockItem blockItem
                 && blockItem.getBlock() instanceof ShulkerBoxBlock) {
@@ -35,6 +38,9 @@ public class ShulkerIconTransferListener {
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
         if (!(event.getState().getBlock() instanceof ShulkerBoxBlock)) {
             return;
         }
@@ -56,6 +62,9 @@ public class ShulkerIconTransferListener {
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
         if (pendingBreakPos == null || pendingBreakIcon.isEmpty()) {
             return;
         }
@@ -80,6 +89,9 @@ public class ShulkerIconTransferListener {
 
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
         if (!(event.getPlacedBlock().getBlock() instanceof ShulkerBoxBlock)) {
             return;
         }
