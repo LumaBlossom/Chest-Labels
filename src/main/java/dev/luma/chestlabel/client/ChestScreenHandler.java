@@ -2,10 +2,13 @@ package dev.luma.chestlabel.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.inventory.ShulkerBoxMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -28,14 +31,20 @@ public class ChestScreenHandler {
         lastRightClickedPos = event.getPos();
     }
 
+    private static boolean isSupportedMenu(Screen screen) {
+        if (!(screen instanceof AbstractContainerScreen<?> containerScreen)) {
+            return false;
+        }
+        AbstractContainerMenu menu = containerScreen.getMenu();
+        return menu instanceof ChestMenu || menu instanceof ShulkerBoxMenu;
+    }
+
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
-            return;
-        }
+        AbstractContainerScreen<?> containerScreen = (AbstractContainerScreen<?>) event.getScreen();
         BlockPos clickedPos = lastRightClickedPos;
         if (clickedPos == null) {
             return;
@@ -62,10 +71,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenRender(ScreenEvent.Render.Post event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
-            return;
-        }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
         var graphics = event.getGuiGraphics();
@@ -77,10 +83,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenMouseClicked(ScreenEvent.MouseButtonPressed.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
-            return;
-        }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
         double mouseX = event.getMouseX();
@@ -103,10 +106,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenMouseReleased(ScreenEvent.MouseButtonReleased.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
-            return;
-        }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
         if (logoSlotPressActive) {
@@ -117,10 +117,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenMouseDragged(ScreenEvent.MouseDragged.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
-            return;
-        }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
         if (logoSlotPressActive) {
@@ -130,10 +127,7 @@ public class ChestScreenHandler {
 
     @SubscribeEvent
     public static void onScreenKeyPressed(ScreenEvent.KeyPressed.Pre event) {
-        if (!(event.getScreen() instanceof ContainerScreen containerScreen)) {
-            return;
-        }
-        if (!(containerScreen.getMenu() instanceof ChestMenu)) {
+        if (!isSupportedMenu(event.getScreen())) {
             return;
         }
         if (activeEditBox == null || !activeEditBox.isFocused()) {
@@ -152,5 +146,27 @@ public class ChestScreenHandler {
 
     private static net.minecraft.resources.ResourceLocation getDimensionKey() {
         return Minecraft.getInstance().level.dimension().location();
+    }
+
+    public static boolean isLogoSlotActive() {
+        return activePos != null;
+    }
+
+    public static int getLogoSlotX() {
+        return logoSlotX;
+    }
+
+    public static int getLogoSlotY() {
+        return logoSlotY;
+    }
+
+    public static void applyGhostItem(ItemStack stack) {
+        if (activePos == null || stack.isEmpty()) {
+            return;
+        }
+        ItemStack copy = stack.copy();
+        copy.setCount(1);
+        pendingLogoItem = copy;
+        ChestLabelData.setLogoItem(getDimensionKey(), activePos, copy);
     }
 }

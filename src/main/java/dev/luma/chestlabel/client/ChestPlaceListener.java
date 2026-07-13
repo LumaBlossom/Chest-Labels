@@ -1,7 +1,9 @@
 package dev.luma.chestlabel.client;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BarrelBlock;
 import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,7 +17,8 @@ public class ChestPlaceListener {
         if (!event.getLevel().isClientSide()) {
             return;
         }
-        if (!(event.getPlacedBlock().getBlock() instanceof ChestBlock)) {
+        var block = event.getPlacedBlock().getBlock();
+        if (!(block instanceof ChestBlock) && !(block instanceof BarrelBlock) && !(block instanceof ShulkerBoxBlock)) {
             return;
         }
         BlockPos pos = event.getPos();
