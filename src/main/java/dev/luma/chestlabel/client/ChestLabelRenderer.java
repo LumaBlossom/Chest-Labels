@@ -10,23 +10,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = "chestlabel", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ChestLabelRenderer {
@@ -77,9 +71,9 @@ public class ChestLabelRenderer {
                         continue;
                     }
 
-                    BlockState state = level.getBlockState(pos);
+                    BlockState blockState = level.getBlockState(pos);
 
-                    if (!isSupportedBlock(state.getBlock())) {
+                    if (!isSupportedBlock(blockState.getBlock())) {
                         continue;
                     }
 
@@ -103,36 +97,7 @@ public class ChestLabelRenderer {
             return;
         }
 
-        Vec3 targetPos = new Vec3(center.x, anchor.getY() + 1.4, center.z);
-
-        if (isOccluded(level, camPos, targetPos)) {
-            BlockState state = level.getBlockState(anchor);
-
-            Direction facing = resolveFacing(state);
-
-            Direction left = facing.getCounterClockWise();
-            Direction right = facing.getClockWise();
-            Direction back = facing.getOpposite();
-
-            double frontOffset = 0.75;
-            double sideOffset = 1.2;
-
-            List<FaceCandidate> faces = new ArrayList<>();
-
-            addFace(faces, center, anchor, facing, frontOffset, camPos);
-            addFace(faces, center, anchor, left, sideOffset, camPos);
-            addFace(faces, center, anchor, right, sideOffset, camPos);
-            addFace(faces, center, anchor, back, frontOffset, camPos);
-
-            faces.sort(Comparator.comparingDouble(FaceCandidate::score).reversed());
-
-            for (FaceCandidate face : faces) {
-                if (!isOccluded(level, camPos, face.position())) {
-                    targetPos = face.position();
-                    break;
-                }
-            }
-        }
+        Vec3 targetPos = resolveTargetPosition(level, anchor, center);
 
         double x = targetPos.x - camPos.x;
         double y = targetPos.y - camPos.y;
@@ -193,6 +158,56 @@ public class ChestLabelRenderer {
         poseStack.popPose();
     }
 
+    private static Vec3 resolveTargetPosition(ClientLevel level, BlockPos anchor, Vec3 center) {
+        Vec3 abovePos = new Vec3(center.x, anchor.getY() + 1.4, center.z);
+
+        if (!isSpaceBlocked(level, anchor.above())) {
+            return abovePos;
+        }
+
+        BlockState state = level.getBlockState(anchor);
+        Direction facing = resolveFacing(state);
+        Direction left = facing.getCounterClockWise();
+        Direction right = facing.getClockWise();
+        Direction back = facing.getOpposite();
+
+        double frontOffset = 0.75;
+        double sideOffset = 1.2;
+
+        BlockPos frontBlock = anchor.relative(facing);
+        BlockPos leftBlock = anchor.relative(left);
+        BlockPos rightBlock = anchor.relative(right);
+        BlockPos backBlock = anchor.relative(back);
+
+        if (!isSpaceBlocked(level, frontBlock)) {
+            return sidePos(center, anchor, facing, frontOffset);
+        }
+        if (!isSpaceBlocked(level, leftBlock)) {
+            return sidePos(center, anchor, left, sideOffset);
+        }
+        if (!isSpaceBlocked(level, rightBlock)) {
+            return sidePos(center, anchor, right, sideOffset);
+        }
+        if (!isSpaceBlocked(level, backBlock)) {
+            return sidePos(center, anchor, back, frontOffset);
+        }
+
+        return sidePos(center, anchor, back, frontOffset);
+    }
+
+    private static Vec3 sidePos(Vec3 center, BlockPos anchor, Direction dir, double offset) {
+        return new Vec3(
+                center.x + dir.getStepX() * offset,
+                anchor.getY() + 0.5,
+                center.z + dir.getStepZ() * offset
+        );
+    }
+
+    private static boolean isSpaceBlocked(BlockGetter level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        return state.isCollisionShapeFullBlock(level, pos);
+    }
+
     private static Direction resolveFacing(BlockState state) {
         if (state.hasProperty(ChestBlock.FACING)) {
             return state.getValue(ChestBlock.FACING);
@@ -205,37 +220,5 @@ public class ChestLabelRenderer {
             return state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING);
         }
         return Direction.NORTH;
-    }
-
-    private static void addFace(List<FaceCandidate> faces, Vec3 center, BlockPos anchor, Direction dir, double offset, Vec3 cameraPos) {
-        Vec3 pos = new Vec3(
-                center.x + dir.getStepX() * offset,
-                anchor.getY() + 0.5,
-                center.z + dir.getStepZ() * offset
-        );
-
-        Vec3 normal = new Vec3(dir.getStepX(), 0, dir.getStepZ());
-        Vec3 toCamera = cameraPos.subtract(center).normalize();
-
-        double score = normal.dot(toCamera);
-
-        faces.add(new FaceCandidate(pos, score));
-    }
-
-    private static boolean isOccluded(ClientLevel level, Vec3 from, Vec3 to) {
-        ClipContext context = new ClipContext(
-                from,
-                to,
-                ClipContext.Block.VISUAL,
-                ClipContext.Fluid.NONE,
-                null
-        );
-
-        HitResult result = level.clip(context);
-
-        return result.getType() != HitResult.Type.MISS;
-    }
-
-    private record FaceCandidate(Vec3 position, double score) {
     }
 }

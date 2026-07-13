@@ -10,6 +10,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ShulkerBoxMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -39,6 +41,14 @@ public class ChestScreenHandler {
         return menu instanceof ChestMenu || menu instanceof ShulkerBoxMenu;
     }
 
+    private static boolean isShulkerPos(BlockPos pos) {
+        var level = Minecraft.getInstance().level;
+        if (level == null || pos == null) {
+            return false;
+        }
+        return level.getBlockState(pos).getBlock() instanceof ShulkerBoxBlock;
+    }
+
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init.Post event) {
         if (!isSupportedMenu(event.getScreen())) {
@@ -56,17 +66,36 @@ public class ChestScreenHandler {
         int barY = guiTop - 24;
         int barX = guiLeft;
 
-        String existingLabel = ChestLabelData.getLabel(getDimensionKey(), pos);
+        String existingLabel;
+        ItemStack existingLogo;
+        if (isShulkerPos(pos)) {
+            BlockEntity be = Minecraft.getInstance().level.getBlockEntity(pos);
+            existingLabel = be != null ? ShulkerLabelStorage.getLabel(be) : "";
+            existingLogo = be != null ? ShulkerLabelStorage.getLogoItem(be) : ItemStack.EMPTY;
+        } else {
+            existingLabel = ChestLabelData.getLabel(getDimensionKey(), pos);
+            existingLogo = ChestLabelData.getLogoItem(getDimensionKey(), pos);
+        }
+
         EditBox editBox = new EditBox(Minecraft.getInstance().font, barX, barY, 118, 18, Component.literal("Chest Label"));
         editBox.setMaxLength(32);
         editBox.setValue(existingLabel);
-        editBox.setResponder(value -> ChestLabelData.setLabel(getDimensionKey(), activePos, value));
+        editBox.setResponder(value -> {
+            if (isShulkerPos(activePos)) {
+                BlockEntity be = Minecraft.getInstance().level.getBlockEntity(activePos);
+                if (be != null) {
+                    ShulkerLabelStorage.setLabel(be, value);
+                }
+            } else {
+                ChestLabelData.setLabel(getDimensionKey(), activePos, value);
+            }
+        });
         event.addListener(editBox);
         activeEditBox = editBox;
 
         logoSlotX = barX + 122;
         logoSlotY = barY;
-        pendingLogoItem = ChestLabelData.getLogoItem(getDimensionKey(), pos);
+        pendingLogoItem = existingLogo;
     }
 
     @SubscribeEvent
@@ -95,12 +124,26 @@ public class ChestScreenHandler {
                 ItemStack copy = carried.copy();
                 copy.setCount(1);
                 pendingLogoItem = copy;
-                ChestLabelData.setLogoItem(getDimensionKey(), activePos, copy);
+                applyLogoItem(copy);
             } else if (!pendingLogoItem.isEmpty()) {
                 pendingLogoItem = ItemStack.EMPTY;
-                ChestLabelData.setLogoItem(getDimensionKey(), activePos, ItemStack.EMPTY);
+                applyLogoItem(ItemStack.EMPTY);
             }
             event.setCanceled(true);
+        }
+    }
+
+    private static void applyLogoItem(ItemStack stack) {
+        if (activePos == null) {
+            return;
+        }
+        if (isShulkerPos(activePos)) {
+            BlockEntity be = Minecraft.getInstance().level.getBlockEntity(activePos);
+            if (be != null) {
+                ShulkerLabelStorage.setLogoItem(be, stack);
+            }
+        } else {
+            ChestLabelData.setLogoItem(getDimensionKey(), activePos, stack);
         }
     }
 
@@ -166,15 +209,5 @@ public class ChestScreenHandler {
 
     public static int getLogoSlotY() {
         return logoSlotY;
-    }
-
-    public static void applyGhostItem(ItemStack stack) {
-        if (activePos == null || stack.isEmpty()) {
-            return;
-        }
-        ItemStack copy = stack.copy();
-        copy.setCount(1);
-        pendingLogoItem = copy;
-        ChestLabelData.setLogoItem(getDimensionKey(), activePos, copy);
     }
 }
