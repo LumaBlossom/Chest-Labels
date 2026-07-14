@@ -22,9 +22,6 @@ public class ShulkerMoveTracker {
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
-        if (!event.getLevel().isClientSide()) {
-            return;
-        }
         if (!(event.getState().getBlock() instanceof ShulkerBoxBlock)) {
             return;
         }
@@ -49,9 +46,6 @@ public class ShulkerMoveTracker {
 
     @SubscribeEvent
     public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
-        if (!event.getLevel().isClientSide()) {
-            return;
-        }
         if (!(event.getPlacedBlock().getBlock() instanceof ShulkerBoxBlock)) {
             return;
         }

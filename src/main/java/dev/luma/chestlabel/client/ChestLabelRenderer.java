@@ -205,7 +205,7 @@ public class ChestLabelRenderer {
 
     private static boolean isSpaceBlocked(BlockGetter level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return state.isCollisionShapeFullBlock(level, pos);
+        return !state.canBeReplaced();
     }
 
     private static Direction resolveFacing(BlockState state) {
