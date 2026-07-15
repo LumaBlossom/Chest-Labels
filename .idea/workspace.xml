@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="" />
+    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/chest-labels.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/chest-labels.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/chest-labels.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/chest-labels.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +65,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="1.20.2" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -85,7 +95,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "dev.sweep.assistant.data.RecentlyUsedFiles": "src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelJeiPlugin.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelGhostHandler.java;build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestScreenHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMoveTracker.java;src\\main\\java\\dev\\luma\\chestlabel\\ChestLabelMod.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPosResolver.java",
-    "git-widget-placeholder": "1.20.1",
+    "git-widget-placeholder": "1.20.3",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "sweep.chatMode": "Agent",
