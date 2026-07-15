@@ -10,10 +10,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChestLabelGhostHandler implements IGhostIngredientHandler<AbstractContainerScreen<?>> {
+public class ChestLabelGhostHandler implements IGhostIngredientHandler<AbstractContainerScreen> {
 
     @Override
-    public <I> List<Target<I>> getTargetsTyped(AbstractContainerScreen<?> gui, ITypedIngredient<I> ingredient, boolean doStart) {
+    public <I> List<Target<I>> getTargetsTyped(AbstractContainerScreen gui, ITypedIngredient<I> ingredient, boolean doStart) {
         List<Target<I>> targets = new ArrayList<>();
 
         if (!ChestScreenHandler.isLogoSlotActive()) {
@@ -33,9 +33,8 @@ public class ChestLabelGhostHandler implements IGhostIngredientHandler<AbstractC
             }
 
             @Override
-            public void onComplete() {
-                Object raw = ingredient.getIngredient();
-                if (raw instanceof ItemStack stack) {
+            public void accept(I ingredient) {
+                if (ingredient instanceof ItemStack stack) {
                     ChestScreenHandler.applyGhostItem(stack);
                 }
             }
