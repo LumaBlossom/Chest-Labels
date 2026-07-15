@@ -169,4 +169,14 @@ public class ChestScreenHandler {
     public static int getLogoSlotY() {
         return logoSlotY;
     }
+
+    public static void applyGhostItem(ItemStack stack) {
+        if (activePos == null || stack.isEmpty()) {
+            return;
+        }
+        ItemStack copy = stack.copy();
+        copy.setCount(1);
+        pendingLogoItem = copy;
+        ChestLabelData.setLogoItem(getDimensionKey(), activePos, copy);
+    }
 }

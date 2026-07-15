@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/jei/ChestLabelGhostHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/jei/ChestLabelJeiPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ShulkerMoveTracker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ShulkerMoveTracker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestScreenHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestScreenHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +91,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMoveTracker.java;src\\main\\java\\dev\\luma\\chestlabel\\ChestLabelMod.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPosResolver.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMovetracker.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerIconTransferListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerLabelStorage.java",
+    "dev.sweep.assistant.data.RecentlyUsedFiles": "build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelJeiPlugin.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelGhostHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestScreenHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestScreenHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMoveTracker.java;src\\main\\java\\dev\\luma\\chestlabel\\ChestLabelMod.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPosResolver.java",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
