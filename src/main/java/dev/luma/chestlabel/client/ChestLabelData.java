@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -83,7 +84,7 @@ public class ChestLabelData {
         try {
             byte[] bytes = Base64.getDecoder().decode(entry.itemNbtBase64);
             ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            CompoundTag tag = NbtIo.readCompressed(in);
+            CompoundTag tag = NbtIo.readCompressed(in, NbtAccounter.unlimitedHeap());
             return ItemStack.of(tag);
         } catch (IOException e) {
             return ItemStack.EMPTY;
