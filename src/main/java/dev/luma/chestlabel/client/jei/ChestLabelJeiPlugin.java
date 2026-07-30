@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 @JeiPlugin
 public class ChestLabelJeiPlugin implements IModPlugin {
 
-    private static final ResourceLocation PLUGIN_ID = new ResourceLocation("chestlabel", "jei_plugin");
+    private static final ResourceLocation PLUGIN_ID = ResourceLocation.fromNamespaceAndPath("chestlabel", "jei_plugin");
 
     @Override
     public ResourceLocation getPluginUid() {

@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +66,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="1.20.4" />
+        <entry key="$PROJECT_DIR$" value="1.20.6" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,8 +93,8 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;gradle.properties;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerLabelStorage.java;settings.gradle;src\\main\\resources\\pack.mcmeta;src\\main\\resources\\chestlabels.png;src\\main\\resources\\META-INF\\mods.toml",
-    "git-widget-placeholder": "1.20.6",
+    "dev.sweep.assistant.data.RecentlyUsedFiles": "gradle.properties;build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerLabelStorage.java;settings.gradle;src\\main\\resources\\pack.mcmeta;src\\main\\resources\\chestlabels.png;src\\main\\resources\\META-INF\\mods.toml",
+    "git-widget-placeholder": "1.21.1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Modules",
@@ -105,7 +104,7 @@
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.Chest-Labels [build]">
+  <component name="RunManager" selected="Gradle.Chest-Labels [runClient]">
     <configuration name="Chest-Labels [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -241,8 +240,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Chest-Labels [build]" />
         <item itemvalue="Gradle.Chest-Labels [runClient]" />
+        <item itemvalue="Gradle.Chest-Labels [build]" />
       </list>
     </recent_temporary>
   </component>
