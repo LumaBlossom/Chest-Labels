@@ -3,10 +3,13 @@ package dev.luma.chestlabel.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtAccounter;
 import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -53,11 +56,11 @@ public class ChestLabelData {
         String existingLabel = existing != null ? existing.label : "";
         String encoded = "";
         if (!stack.isEmpty()) {
-            CompoundTag tag = new CompoundTag();
-            stack.save(tag);
+            HolderLookup.Provider registries = Minecraft.getInstance().level.registryAccess();
+            Tag savedTag = stack.save(registries);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             try {
-                NbtIo.writeCompressed(tag, out);
+                NbtIo.writeCompressed((CompoundTag) savedTag, out);
             } catch (IOException e) {
                 return;
             }
@@ -85,7 +88,8 @@ public class ChestLabelData {
             byte[] bytes = Base64.getDecoder().decode(entry.itemNbtBase64);
             ByteArrayInputStream in = new ByteArrayInputStream(bytes);
             CompoundTag tag = NbtIo.readCompressed(in, NbtAccounter.unlimitedHeap());
-            return ItemStack.of(tag);
+            HolderLookup.Provider registries = Minecraft.getInstance().level.registryAccess();
+            return ItemStack.parseOptional(registries, tag);
         } catch (IOException e) {
             return ItemStack.EMPTY;
         }
