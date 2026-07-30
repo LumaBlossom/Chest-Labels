@@ -44,7 +44,7 @@ public class ChestLabelRenderer {
         Camera camera = mc.gameRenderer.getMainCamera();
         Vec3 camPos = camera.getPosition();
 
-        PoseStack poseStack = event.getPoseStack();
+        PoseStack poseStack = new PoseStack();
         MultiBufferSource.BufferSource buffer = mc.renderBuffers().bufferSource();
 
         var dimKey = level.dimension().location();
@@ -205,7 +205,7 @@ public class ChestLabelRenderer {
 
     private static boolean isSpaceBlocked(BlockGetter level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
-        return !state.canBeReplaced();
+        return !state.isAir();
     }
 
     private static Direction resolveFacing(BlockState state) {
