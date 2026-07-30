@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/luma/chestlabel/client/ChestLabelRenderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +93,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "dev.sweep.assistant.data.RecentlyUsedFiles": "gradle.properties;build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerLabelStorage.java;settings.gradle;src\\main\\resources\\pack.mcmeta;src\\main\\resources\\chestlabels.png;src\\main\\resources\\META-INF\\mods.toml",
+    "dev.sweep.assistant.data.RecentlyUsedFiles": "gradle.properties;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;run\\logs\\latest.log;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelJeiPlugin.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelGhostHandler.java;build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerLabelStorage.java;settings.gradle",
     "git-widget-placeholder": "1.21.1",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
