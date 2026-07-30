@@ -117,7 +117,18 @@ public class ChestLabelRenderer {
 
             float xOffset = -textWidth / 2.0F;
 
-            font.drawInBatch(label, xOffset, 0, 0xFFFF0000, false, poseStack.last().pose(), buffer, Font.DisplayMode.NORMAL, 0, 0xF000F0);
+            font.drawInBatch(
+                    label,
+                    xOffset,
+                    0,
+                    0xFFFFFFFF,
+                    false,
+                    poseStack.last().pose(),
+                    buffer,
+                    Font.DisplayMode.NORMAL,
+                    0,
+                    15728880
+            );
 
             poseStack.popPose();
         }
