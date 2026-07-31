@@ -113,7 +113,7 @@ public class ChestLabelRenderer {
         float worldTextWidth = textWidth * TEXT_SCALE;
         if (!label.isEmpty()) {
             poseStack.pushPose();
-            poseStack.scale(-TEXT_SCALE, -TEXT_SCALE, TEXT_SCALE);
+            poseStack.scale(TEXT_SCALE, TEXT_SCALE, TEXT_SCALE);
 
             float xOffset = -textWidth / 2.0F;
 
