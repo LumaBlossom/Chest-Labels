@@ -30,7 +30,7 @@ public class ChestLabelRenderer {
 
     @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
             return;
         }
 
@@ -129,6 +129,7 @@ public class ChestLabelRenderer {
                     0,
                     15728880
             );
+            buffer.endBatch();
 
             poseStack.popPose();
         }
