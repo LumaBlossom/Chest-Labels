@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="" />
+    <list default="true" id="b2c7c0c1-922c-46f1-a801-35401fb75600" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.8/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,7 +89,11 @@
   &quot;keyToString&quot;: {
     &quot;Gradle.C:/Users/Trevd/mc mods/Chest-Labels [createMcpToSrg].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.C:/Users/Trevd/mc mods/Chest-Labels [wrapper genIntellijRuns].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [:cpw.mods.bootstraplauncher.BootstrapLauncher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [:prepareRunClientCompile].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Chest-Labels [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Chest-Labels [clean].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Chest-Labels [createMcpToSrg].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Chest-Labels [runClient].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
@@ -90,7 +102,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;dev.sweep.assistant.data.RecentlyUsedFiles&quot;: &quot;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMoveTracker.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelJeiPlugin.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelGhostHandler.java;gradle.properties;src\\main\\java\\dev\\luma\\chestlabel\\ChestLabelMod.java;run\\logs\\latest.log;build.gradle;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelData.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestPlaceListener.java&quot;,
+    &quot;dev.sweep.assistant.data.RecentlyUsedFiles&quot;: &quot;build.gradle;gradle.properties;settings.gradle;.gradle\\8.8\\gc.properties;_assets\\chestlabelsbanner.png;src\\main\\java\\dev\\luma\\chestlabel\\client\\ChestLabelRenderer.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\ShulkerMoveTracker.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelJeiPlugin.java;src\\main\\java\\dev\\luma\\chestlabel\\client\\jei\\ChestLabelGhostHandler.java;src\\main\\java\\dev\\luma\\chestlabel\\ChestLabelMod.java&quot;,
     &quot;git-widget-placeholder&quot;: &quot;1.21.1&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -114,6 +126,56 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Chest-Labels [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="classes" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Chest-Labels [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -238,6 +300,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Chest-Labels [runClient]" />
+        <item itemvalue="Gradle.Chest-Labels [clean]" />
+        <item itemvalue="Gradle.Chest-Labels [classes]" />
         <item itemvalue="Gradle.Chest-Labels [build]" />
       </list>
     </recent_temporary>

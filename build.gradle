@@ -58,10 +58,6 @@ repositories {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
 }
 
 dependencies {
