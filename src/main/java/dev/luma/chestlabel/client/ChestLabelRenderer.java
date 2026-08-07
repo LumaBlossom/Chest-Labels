@@ -17,12 +17,12 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = "chestlabel", bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = "chestlabel", bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ChestLabelRenderer {
 
     private static final double MAX_RENDER_DISTANCE_SQ = 64 * 64;
@@ -113,7 +113,7 @@ public class ChestLabelRenderer {
         float worldTextWidth = textWidth * TEXT_SCALE;
         if (!label.isEmpty()) {
             poseStack.pushPose();
-            poseStack.scale(TEXT_SCALE, -TEXT_SCALE, TEXT_SCALE);
+            poseStack.scale(-TEXT_SCALE, TEXT_SCALE, TEXT_SCALE);
 
             float xOffset = -textWidth / 2.0F;
 

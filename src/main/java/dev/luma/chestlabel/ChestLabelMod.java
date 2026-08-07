@@ -1,8 +1,8 @@
 package dev.luma.chestlabel;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 import dev.luma.chestlabel.client.ChestLabelData;
 
 @Mod(ChestLabelMod.MODID)
